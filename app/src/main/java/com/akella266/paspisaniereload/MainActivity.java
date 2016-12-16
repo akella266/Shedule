@@ -1,9 +1,9 @@
 package com.akella266.paspisaniereload;
 
+import android.support.v7.widget.Toolbar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 public class MainActivity extends Activity {
 
@@ -20,12 +20,13 @@ public class MainActivity extends Activity {
     private void initToolBar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.toolBar_titleColor));
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 return false;
             }
         });
-        toolbar.inflateMenu(R.menu);
+        toolbar.inflateMenu(R.menu.menu);
     }
 }

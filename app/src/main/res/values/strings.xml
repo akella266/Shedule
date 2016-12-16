@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">PaspisanieReload</string>
-    <string name="toolBar_option"></string>
+    <string name="app_name">PaspisanieReloadBeta</string>
+    <string name="toolBar_option">Exit</string>
 </resources>
