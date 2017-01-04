@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="lenSide">150dp</dimen>
+    <dimen name="leftRightEnd">16dp</dimen>
+    <dimen name="center">15dp</dimen>
+    <dimen name="top">25dp</dimen>
+</resources>
