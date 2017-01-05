@@ -8,24 +8,13 @@
     <include android:id="@+id/toolbar"
         layout="@layout/tool_bar"/>
 
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/btnSun"-->
-        <!--android:text="@string/sunday"-->
-        <!--android:layout_gravity="start"-->
-        <!--android:textAlignment="textStart"/>-->
-
-    <!--android:layout_marginRight="16dp"-->
-    <!--android:layout_marginTop="16dp"-->
-
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         android:gravity="center"
-        android:numColumns="auto_fit"
+        android:numColumns="2"
         android:stretchMode="columnWidth"
         >
 
