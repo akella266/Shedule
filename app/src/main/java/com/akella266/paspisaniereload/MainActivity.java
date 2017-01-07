@@ -1,6 +1,6 @@
 package com.akella266.paspisaniereload;
 
-import android.support.design.widget.Snackbar;
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,11 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
-    String[] week = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    String[] week = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
     Toolbar toolbar;
     GridView gvMain;
     //GridAdapter adapter;
@@ -35,12 +34,7 @@ public class MainActivity extends Activity {
         gvMain.setColumnWidth(400);
         gvMain.setVerticalSpacing(32);
         gvMain.setHorizontalSpacing(32);
-        gvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Snackbar.make(view, "Was Clicked " + week[+i], Snackbar.LENGTH_LONG).show();
-            }
-        });
+        gvMain.setOnItemClickListener(this);
     }
 
     private void initToolBar(){
@@ -54,5 +48,10 @@ public class MainActivity extends Activity {
             }
         });
         toolbar.inflateMenu(R.menu.menu);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        startActivity(new Intent(this,LessonActivity.class));
     }
 }
