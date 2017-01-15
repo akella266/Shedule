@@ -1,24 +1,33 @@
 package com.akella266.paspisaniereload;
 
+import java.util.UUID;
+
 /**
  * Created by Akella266 on 06.01.2017.
  */
 
 public class LessonInfo {
 
+    private UUID id;
     private String lesson;
     private String prof;
     private String room;
     private String time;
 
-    public LessonInfo() {
-    }
-
     public LessonInfo(String lesson, String prof, String room, String time) {
+        this.id = UUID.randomUUID();
         this.lesson = lesson;
         this.prof = prof;
         this.room = room;
         this.time = time;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getLesson() {

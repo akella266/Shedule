@@ -7,4 +7,11 @@
     <string name="thursday">Четверг</string>
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
+    <string name="lesson_fragment_tv_lesson">Предмет</string>
+    <string name="lesson_fargment_et_Lesson_hint">Введите название занятия</string>
+    <string name="lesson_fragment_tv_Prof">Преподаватель</string>
+    <string name="lesson_fargment_et_Prof_hint">Введите ФИО преподавателя</string>
+    <string name="lesson_fragment_tv_room">Аудитория</string>
+    <string name="lesson_fargment_et_room_hint">Введите номер аудитории</string>
+    <string name="lesson_fragment_tv_Time">Время</string>
 </resources>
