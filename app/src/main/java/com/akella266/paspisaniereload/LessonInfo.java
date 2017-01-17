@@ -10,6 +10,7 @@ public class LessonInfo {
 
     private UUID id;
     private String lesson;
+    private int index;
     private String prof;
     private String room;
     private String time;
