@@ -24,8 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="5dp"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         tools:text="МатАнализ"/>
 
@@ -34,8 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="5dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         tools:text="Задорожнюк М.В."
         />
 
@@ -44,8 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="5dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         tools:text="2-413"
         />
 
@@ -54,8 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="5dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         tools:text="8.00-9.30"
         />
     </LinearLayout>
