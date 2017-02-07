@@ -14,4 +14,10 @@
     <string name="lesson_fragment_tv_room">Аудитория</string>
     <string name="lesson_fargment_et_room_hint">Введите номер аудитории</string>
     <string name="lesson_fragment_tv_Time">Время</string>
+    <string name="lesson_fragment_btn_ok">ОК</string>
+    <string name="lesson_fragment_btn_cancel">Отмена</string>
+    <string name="new_lesson">Новый предмет</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$s lessons</string>
 </resources>

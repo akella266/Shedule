@@ -6,8 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class LessonsFragment extends Fragment {
 
     private static final int REQUEST_LESSON = 1;
+    private static final String ARG_LESSONS_DAY = "lessons_day";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -33,36 +35,60 @@ public class LessonsFragment extends Fragment {
         }
     }
 
-    private Toolbar toolbar;
     private RecyclerView rvList;
     private ArrayList<LessonInfo> lessons;
     private RecyclerAdapter mAdapter;
+    private String day;
+
+    public static LessonsFragment newInstance(String day){
+        Bundle args = new Bundle();
+        args.putString(ARG_LESSONS_DAY, day);
+
+        LessonsFragment lessonsFragment = new LessonsFragment();
+        lessonsFragment.setArguments(args);
+        return lessonsFragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_lesson_for_fragments, container, false);
 
+        day = (String) getArguments().getSerializable(ARG_LESSONS_DAY);//for database and for title of toolbar
+
         rvList = (RecyclerView)view.findViewById(R.id.rvList);
         rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        initToolBar(view);
         updateUI();
 
         return view;
     }
 
-    private void initToolBar(View v) {
-        toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        toolbar.setTitle("Lesson");
-        toolbar.setTitleTextColor(getResources().getColor(R.color.toolBar_titleColor));
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return false;
-            }
-        });
-        toolbar.inflateMenu(R.menu.menu);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.lesson_fragment_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_item_new_lesson:
+                LessonInfo info = new LessonInfo();
+                LessonSingle.get(getActivity()).addLesson(info);
+                Intent intent = InfoPagerActivity.newIntent(getActivity(), info.getId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateUI() {
@@ -75,6 +101,7 @@ public class LessonsFragment extends Fragment {
             rvList.setAdapter(mAdapter);
         }
         else{
+            mAdapter.setCrimes(lessons);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -107,6 +134,10 @@ public class LessonsFragment extends Fragment {
         @Override
         public int getItemCount() {
             return lessons.size();
+        }
+
+        public void setCrimes(ArrayList<LessonInfo> lessons){
+            this.lessons = lessons;
         }
     }
 

@@ -17,15 +17,16 @@ import com.akella266.paspisaniereload.R;
 public class WeekFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     String[] week = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
-    Toolbar toolbar;
     GridView gvMain;
     ArrayAdapter<String> adapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.week_fragment, container, false);
 
-        initToolBar(v);
+
+
         initGridWithButtons(v);
 
         return v;
@@ -41,21 +42,9 @@ public class WeekFragment extends Fragment implements AdapterView.OnItemClickLis
         gvMain.setOnItemClickListener(this);
     }
 
-    private void initToolBar(View v){
-        toolbar = (Toolbar)v.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.toolBar_titleColor));
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                return false;
-            }
-        });
-        toolbar.inflateMenu(R.menu.menu);
-    }
-
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        startActivity(new Intent(getContext(),LessonsActivity.class));
+        Intent intent = LessonsActivity.newIntent(getContext(), week[i]);
+        startActivity(intent);
     }
 }

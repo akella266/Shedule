@@ -10,17 +10,16 @@ public class LessonInfo {
 
     private UUID id;
     private String lesson;
-    private int index;
     private String prof;
     private String room;
     private String time;
 
-    public LessonInfo(String lesson, String prof, String room, String time) {
-        this.id = UUID.randomUUID();
-        this.lesson = lesson;
-        this.prof = prof;
-        this.room = room;
-        this.time = time;
+    public LessonInfo(){
+        this(UUID.randomUUID());
+    }
+
+    public LessonInfo(UUID id) {
+        this.id = id;
     }
 
     public UUID getId() {

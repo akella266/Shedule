@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -23,13 +24,22 @@ public class InfoFragment extends Fragment {
 
     private static final String ARG_LESSON_ID ="lesson_id";
     private ArrayList<String> times;
-    private String[] str = new String[]{"8.00-9.30", "9.45-11.15", "11.25-12.55", "13.25-14.55", "15.05-16.35", "16.50-18.20"};
+    //private String[] str = new String[]{"8.00-9.30", "9.45-11.15", "11.25-12.55", "13.25-14.55", "15.05-16.35", "16.50-18.20"};
     ArrayAdapter<String> timesAdapter;
     LessonInfo lessonInfo;
     EditText etLesson;
     EditText etProf;
     EditText etRoom;
     Spinner sprTime;
+    Button btnOK;
+    Button btnCancel;
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        LessonSingle.get(getActivity()).updateLesson(lessonInfo);
+    }
 
     public static InfoFragment newInstance(UUID id){
         Bundle args = new Bundle();
@@ -44,16 +54,15 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lesson_fragment, container, false );
+        //получить название урока как нибудь:)
+        initFields(view);
+        setListeners();
 
-        times = new ArrayList<String>();
-        times.add("8.00-9.30");
-        times.add("9.45-11.15");
-        times.add("11.25-12.55");
-        times.add("13.25-14.55");
-        times.add("15.05-16.35");
-        times.add("16.50-18.20");
+        return view;
+    }
 
 
+    private void initFields(View view) {
         UUID lessonId = (UUID)getArguments().getSerializable(ARG_LESSON_ID);
         lessonInfo = LessonSingle.get(getActivity()).getLesson(lessonId);
 
@@ -63,9 +72,39 @@ public class InfoFragment extends Fragment {
         etProf.setText(lessonInfo.getProf());
         etRoom = (EditText) view.findViewById(R.id.lesson_fragment_et_Room);
         etRoom.setText(lessonInfo.getRoom());
-
+        btnOK = (Button)view.findViewById(R.id.lesson_fragment_btn_ok);
+        btnCancel = (Button)view.findViewById(R.id.lesson_fragment_btn_cancel);
 
         sprTime = (Spinner) view.findViewById(R.id.lesson_fragment_spinner_time);
+
+        times = new ArrayList<String>();
+        times.add("8.00-9.30");
+        times.add("9.45-11.15");
+        times.add("11.25-12.55");
+        times.add("13.25-14.55");
+        times.add("15.05-16.35");
+        times.add("16.50-18.20");
+    }
+
+
+    private void setListeners() {
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lessonInfo.setLesson(etLesson.getText().toString());
+                lessonInfo.setProf(etProf.getText().toString());
+                lessonInfo.setRoom(etRoom.getText().toString());
+                lessonInfo.setTime(times.get(sprTime.getSelectedItemPosition()));
+                getActivity().finish();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+
         timesAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, times);
         timesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -83,11 +122,6 @@ public class InfoFragment extends Fragment {
 
             }
         });
-
-
-
-
-        return view;
     }
 
     public void returnResult(){

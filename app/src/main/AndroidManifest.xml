@@ -19,13 +19,15 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".Fragments.LessonsActivity">
+        <activity android:name=".Fragments.LessonsActivity"
+                    android:parentActivityName=".Fragments.MainActivityWeek">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".Fragments.InfoPagerActivity">
+        <activity android:name=".Fragments.InfoPagerActivity"
+                  android:parentActivityName=".Fragments.LessonsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
