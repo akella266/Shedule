@@ -39,6 +39,7 @@ public class LessonsFragment extends Fragment {
     private ArrayList<LessonInfo> lessons;
     private RecyclerAdapter mAdapter;
     private String day;
+    private TextView noLessons;
 
     public static LessonsFragment newInstance(String day){
         Bundle args = new Bundle();
@@ -59,6 +60,8 @@ public class LessonsFragment extends Fragment {
         rvList = (RecyclerView)view.findViewById(R.id.rvList);
         rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        noLessons = (TextView) view.findViewById(R.id.activity_lesson_for_fragment_no_lessons);
+
         updateUI();
 
         return view;
@@ -68,7 +71,6 @@ public class LessonsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     @Override
@@ -82,7 +84,7 @@ public class LessonsFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.menu_item_new_lesson:
                 LessonInfo info = new LessonInfo();
-                LessonSingle.get(getActivity()).addLesson(info);
+                LessonSingle.get(getActivity(),day).addLesson(info);
                 Intent intent = InfoPagerActivity.newIntent(getActivity(), info.getId());
                 startActivity(intent);
                 return true;
@@ -93,16 +95,23 @@ public class LessonsFragment extends Fragment {
 
     private void updateUI() {
 
-        LessonSingle lessonSingle = LessonSingle.get(getActivity());
+        LessonSingle lessonSingle = LessonSingle.get(getActivity(),day);
         lessons = lessonSingle.getmLessons();
 
-        if (mAdapter == null){
-            mAdapter = new RecyclerAdapter(lessons);
-            rvList.setAdapter(mAdapter);
+        if (lessons.size() == 0){
+            noLessons.setVisibility(View.VISIBLE);
+            rvList.setVisibility(View.INVISIBLE);
         }
-        else{
-            mAdapter.setCrimes(lessons);
-            mAdapter.notifyDataSetChanged();
+        else {
+            noLessons.setVisibility(View.INVISIBLE);
+            rvList.setVisibility(View.VISIBLE);
+            if (mAdapter == null) {
+                mAdapter = new RecyclerAdapter(lessons);
+                rvList.setAdapter(mAdapter);
+            } else {
+                mAdapter.setCrimes(lessons);
+                mAdapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -162,6 +171,7 @@ public class LessonsFragment extends Fragment {
             super(itemView);
 
             itemView.setOnClickListener(this);
+
 
             tvLesson = (TextView)itemView.findViewById(R.id.tvNameLesson);
             tvProf = (TextView)itemView.findViewById(R.id.tvProf);

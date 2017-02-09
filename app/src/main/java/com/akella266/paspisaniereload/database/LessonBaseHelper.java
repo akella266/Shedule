@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.akella266.paspisaniereload.Days;
+
 /**
  * Created by Akella266 on 06.02.2017.
  */
@@ -19,14 +21,16 @@ public class LessonBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + LessonDBSchema.LessonTable.NAME + "(" +
-                "_id integer primary key autoincrement, " +
-                LessonDBSchema.LessonTable.Cols.UUID + ", " +
-                LessonDBSchema.LessonTable.Cols.LESSON + ", " +
-                LessonDBSchema.LessonTable.Cols.PROF + ", " +
-                LessonDBSchema.LessonTable.Cols.ROOM + ", " +
-                LessonDBSchema.LessonTable.Cols.TIME + ")"
-        );
+        for(Days day : Days.values()) {
+            sqLiteDatabase.execSQL("create table " + day.toString() + "(" +
+                    "_id integer primary key autoincrement, " +
+                    LessonDBSchema.LessonTable.Cols.UUID + ", " +
+                    LessonDBSchema.LessonTable.Cols.LESSON + ", " +
+                    LessonDBSchema.LessonTable.Cols.PROF + ", " +
+                    LessonDBSchema.LessonTable.Cols.ROOM + ", " +
+                    LessonDBSchema.LessonTable.Cols.TIME + ")"
+            );
+        }
     }
 
     @Override

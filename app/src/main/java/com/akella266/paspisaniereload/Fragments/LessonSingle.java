@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaDataSource;
 
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.database.LessonBaseHelper;
@@ -11,34 +12,54 @@ import com.akella266.paspisaniereload.database.LessonCursorWrapper;
 import com.akella266.paspisaniereload.database.LessonDBSchema;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import static com.akella266.paspisaniereload.database.LessonDBSchema.LessonTable.NAME;
+import static com.akella266.paspisaniereload.database.LessonDBSchema.LessonTable.getNAME;
+import static com.akella266.paspisaniereload.database.LessonDBSchema.LessonTable.setName;
 
 public class LessonSingle {
 
     private static LessonSingle sLessonSingle;
 
-    private Context mContext;
-    private SQLiteDatabase mDataBase;
+    private static Context mContext;
+    private static SQLiteDatabase mDataBase;
+    private static String day;
 
-    private LessonSingle(Context context){
+    private LessonSingle(Context context, String _day){
         mContext = context.getApplicationContext();
+        setDatabase(_day);
+    }
+
+    public static  LessonSingle get(Context context){
+        return get(context, day);
+    }
+
+    public static LessonSingle get(Context context, String _day){
+        if(sLessonSingle == null){
+            sLessonSingle = new LessonSingle(context, _day);
+        }
+        else if (!checkDay(_day)) {
+            setDatabase(_day);
+        }
+        return sLessonSingle;
+    }
+
+    private static void setDatabase(String _day){
+        day = _day;
+        setName(day);
+        if (mDataBase != null)
+            mDataBase.close();
         mDataBase = new LessonBaseHelper(mContext).getWritableDatabase();
     }
 
-    public static LessonSingle get(Context context){
-        if(sLessonSingle == null){
-            sLessonSingle = new LessonSingle(context);
-        }
-        return sLessonSingle;
+    private static boolean checkDay(String _day){
+        return day.equals(_day);
     }
 
     public void addLesson(LessonInfo lesson){
         ContentValues values = getContentValues(lesson);
 
-        mDataBase.insert(NAME, null, values);
+        mDataBase.insert(getNAME(), null, values);
     }
 
     public ArrayList<LessonInfo> getmLessons(){
@@ -79,7 +100,7 @@ public class LessonSingle {
         String uuid = info.getId().toString();
         ContentValues values = getContentValues(info);
 
-        mDataBase.update(NAME, values, LessonDBSchema.LessonTable.Cols.UUID + " = ?", new String[]{uuid});
+        mDataBase.update(getNAME(), values, LessonDBSchema.LessonTable.Cols.UUID + " = ?", new String[]{uuid});
     }
 
     private static ContentValues getContentValues(LessonInfo info){
@@ -95,7 +116,7 @@ public class LessonSingle {
 
     private LessonCursorWrapper queryLesson(String whereClause, String[] whereArgs){
         Cursor cursor = mDataBase.query(
-                NAME,
+                getNAME(),
                 null,//all cols
                 whereClause,
                 whereArgs,

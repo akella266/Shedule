@@ -54,7 +54,7 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lesson_fragment, container, false );
-        //получить название урока как нибудь:)
+        //получить день как нибудь:)!!!!!!!!!!!!!!!!!1
         initFields(view);
         setListeners();
 

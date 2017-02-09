@@ -17,7 +17,6 @@
     <string name="lesson_fragment_btn_ok">ОК</string>
     <string name="lesson_fragment_btn_cancel">Отмена</string>
     <string name="new_lesson">Новый предмет</string>
-    <string name="show_subtitle">Show Subtitle</string>
-    <string name="hide_subtitle">Hide Subtitle</string>
-    <string name="subtitle_format">%1$s lessons</string>
+    <string name="no_lessons">Предметы отсутствуют</string>
+
 </resources>

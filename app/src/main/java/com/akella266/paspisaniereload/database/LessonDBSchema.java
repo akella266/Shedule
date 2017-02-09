@@ -3,8 +3,15 @@ package com.akella266.paspisaniereload.database;
 public class LessonDBSchema {
 
     public static final class LessonTable {
-        public static final String NAME = "lessons";
+        private static String Name;
 
+        public static void setName(String name){
+            Name = name;
+        }
+
+        public static String getNAME() {
+            return Name;
+        }
 
         public static final class Cols {
             public static final String UUID = "uuid";
