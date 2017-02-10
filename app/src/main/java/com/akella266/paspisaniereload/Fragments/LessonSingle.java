@@ -62,6 +62,10 @@ public class LessonSingle {
         mDataBase.insert(getNAME(), null, values);
     }
 
+    public void deleteLesson(LessonInfo info){
+        mDataBase.delete(getNAME(), LessonDBSchema.LessonTable.Cols.UUID + " = ?",new String[]{info.getId().toString()});
+    }
+
     public ArrayList<LessonInfo> getmLessons(){
 
         ArrayList<LessonInfo> lessons = new ArrayList<>();

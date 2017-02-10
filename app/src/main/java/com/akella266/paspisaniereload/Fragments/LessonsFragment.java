@@ -3,6 +3,7 @@ package com.akella266.paspisaniereload.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class LessonsFragment extends Fragment {
     private RecyclerAdapter mAdapter;
     private String day;
     private TextView noLessons;
+    private FloatingActionButton mFab;
 
     public static LessonsFragment newInstance(String day){
         Bundle args = new Bundle();
@@ -61,37 +63,44 @@ public class LessonsFragment extends Fragment {
         rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         noLessons = (TextView) view.findViewById(R.id.activity_lesson_for_fragment_no_lessons);
+        mFab = (FloatingActionButton) view.findViewById(R.id.activity_lesson_for_fragments_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LessonInfo info = new LessonInfo();
+                LessonSingle.get(getActivity(),day).addLesson(info);
+                Intent intent = InfoPagerActivity.newIntent(getActivity(), info.getId());
+                startActivity(intent);
+            }
+        });
 
         updateUI();
 
         return view;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.lesson_fragment_list, menu);
+//    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.lesson_fragment_list, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.menu_item_new_lesson:
-                LessonInfo info = new LessonInfo();
-                LessonSingle.get(getActivity(),day).addLesson(info);
-                Intent intent = InfoPagerActivity.newIntent(getActivity(), info.getId());
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch(item.getItemId()){
+//            case R.id.menu_item_new_lesson:
+//
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     private void updateUI() {
 
