@@ -64,6 +64,7 @@ public class LessonsFragment extends Fragment {
 
         noLessons = (TextView) view.findViewById(R.id.activity_lesson_for_fragment_no_lessons);
         mFab = (FloatingActionButton) view.findViewById(R.id.activity_lesson_for_fragments_fab);
+        mFab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,29 +79,6 @@ public class LessonsFragment extends Fragment {
 
         return view;
     }
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.lesson_fragment_list, menu);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId()){
-//            case R.id.menu_item_new_lesson:
-//
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     private void updateUI() {
 

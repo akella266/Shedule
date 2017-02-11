@@ -18,5 +18,6 @@
     <string name="lesson_fragment_btn_cancel">Отмена</string>
     <string name="new_lesson">Новый предмет</string>
     <string name="no_lessons">Предметы отсутствуют</string>
+    <string name="no_name_lesson">Необходимо обязательно ввести название предмета</string>
 
 </resources>

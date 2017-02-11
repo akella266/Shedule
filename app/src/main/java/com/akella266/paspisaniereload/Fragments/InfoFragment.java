@@ -3,6 +3,7 @@ package com.akella266.paspisaniereload.Fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +37,7 @@ public class InfoFragment extends Fragment {
     Spinner sprTime;
     Button btnOK;
     Button btnCancel;
+    boolean isNew;
 
     @Override
     public void onPause() {
@@ -69,6 +71,10 @@ public class InfoFragment extends Fragment {
         UUID lessonId = (UUID)getArguments().getSerializable(ARG_LESSON_ID);
         lessonInfo = LessonSingle.get(getActivity()).getLesson(lessonId);
 
+        if (lessonInfo.getLesson() == null &&
+                lessonInfo.getProf() == null &&
+                lessonInfo.getRoom() == null) isNew = true;
+
         etLesson = (EditText) view.findViewById(R.id.lesson_fragment_et_Lesson);
         etLesson.setText(lessonInfo.getLesson());
         etProf = (EditText) view.findViewById(R.id.lesson_fragment_et_Prof);
@@ -89,13 +95,60 @@ public class InfoFragment extends Fragment {
         times.add("16.50-18.20");
     }
 
+    private void setListeners() {
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etLesson.getText().toString().length() == 0){
+                    Snackbar.make(view, R.string.no_name_lesson, Snackbar.LENGTH_SHORT).show();
+                }
+                else {
+                    lessonInfo.setLesson(etLesson.getText().toString());
+                    lessonInfo.setProf(etProf.getText().toString());
+                    lessonInfo.setRoom(etRoom.getText().toString());
+                    lessonInfo.setTime(times.get(sprTime.getSelectedItemPosition()));
+                    getActivity().finish();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isNew) {
+                    LessonSingle.get(getActivity()).deleteLesson(lessonInfo);
+                    isNew = false;
+                }
+                getActivity().finish();
+            }
+        });
+
+        timesAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, times);
+        timesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sprTime.setAdapter(timesAdapter);
+        sprTime.setPrompt("Время");
+        int indexOfTime = LessonSingle.get(getActivity()).getmLessons().size();
+        if (indexOfTime > 6)
+            indexOfTime = 6;
+        sprTime.setSelection(indexOfTime-1);
+        sprTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sprTime.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.lesson_fragment_list, menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,43 +168,7 @@ public class InfoFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    private void setListeners() {
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lessonInfo.setLesson(etLesson.getText().toString());
-                lessonInfo.setProf(etProf.getText().toString());
-                lessonInfo.setRoom(etRoom.getText().toString());
-                lessonInfo.setTime(times.get(sprTime.getSelectedItemPosition()));
-                getActivity().finish();
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LessonSingle.get(getActivity()).deleteLesson(lessonInfo);
-                getActivity().finish();
-            }
-        });
 
-        timesAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, times);
-        timesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        sprTime.setAdapter(timesAdapter);
-        sprTime.setPrompt("Время");
-        sprTime.setSelection(times.indexOf(lessonInfo.getTime()));
-        sprTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sprTime.setSelection(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
 
     public void returnResult(){
         getActivity().setResult(Activity.RESULT_OK, null);

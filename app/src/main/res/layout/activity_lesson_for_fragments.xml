@@ -23,7 +23,6 @@
         android:id="@+id/activity_lesson_for_fragments_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:rippleColor="#2979ff"
         android:elevation="8dp"
         android:src="@drawable/ic_add_white"
         android:layout_alignParentBottom="true"
