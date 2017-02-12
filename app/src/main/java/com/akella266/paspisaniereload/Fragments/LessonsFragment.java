@@ -17,12 +17,9 @@ import android.widget.TextView;
 
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
+import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 
 import java.util.ArrayList;
-
-/**
- * Created by Akella266 on 09.01.2017.
- */
 
 public class LessonsFragment extends Fragment {
 
@@ -41,7 +38,6 @@ public class LessonsFragment extends Fragment {
     private RecyclerAdapter mAdapter;
     private String day;
     private TextView noLessons;
-    private FloatingActionButton mFab;
 
     public static LessonsFragment newInstance(String day){
         Bundle args = new Bundle();
@@ -57,13 +53,15 @@ public class LessonsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_lesson_for_fragments, container, false);
 
-        day = (String) getArguments().getSerializable(ARG_LESSONS_DAY);//for database and for title of toolbar
+        day = (String) getArguments().getSerializable(ARG_LESSONS_DAY);
 
         rvList = (RecyclerView)view.findViewById(R.id.rvList);
         rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        initSwipeListener();
+
         noLessons = (TextView) view.findViewById(R.id.activity_lesson_for_fragment_no_lessons);
-        mFab = (FloatingActionButton) view.findViewById(R.id.activity_lesson_for_fragments_fab);
+        FloatingActionButton mFab = (FloatingActionButton) view.findViewById(R.id.activity_lesson_for_fragments_fab);
         mFab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +76,37 @@ public class LessonsFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    private void initSwipeListener() {
+        SwipeableRecyclerViewTouchListener swipeListener =
+                new SwipeableRecyclerViewTouchListener(rvList, new SwipeableRecyclerViewTouchListener.SwipeListener() {
+                    @Override
+                    public boolean canSwipeLeft(int position) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean canSwipeRight(int position) {
+                        return true;
+                    }
+
+                    @Override
+                    public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+
+                    }
+
+                    @Override
+                    public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                        for(int pos : reverseSortedPositions){
+                            LessonSingle.get(getActivity()).deleteLesson(lessons.get(pos));
+                            lessons.remove(pos);
+                            mAdapter.notifyItemChanged(pos);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+        rvList.addOnItemTouchListener(swipeListener);
     }
 
     private void updateUI() {
