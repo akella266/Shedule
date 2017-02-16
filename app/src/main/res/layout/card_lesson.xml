@@ -23,16 +23,24 @@
         android:id="@+id/tvNameLesson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="МатАнализ"/>
 
     <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:textSize="14sp"
+        tools:text="Лекция"/>
+
+    <TextView
         android:id="@+id/tvProf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:textSize="14sp"
         tools:text="Задорожнюк М.В."
         />
@@ -41,7 +49,7 @@
         android:id="@+id/tvRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:textSize="14sp"
         tools:text="2-413"
         />
@@ -50,7 +58,7 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:textSize="14sp"
         tools:text="8.00-9.30"
         />

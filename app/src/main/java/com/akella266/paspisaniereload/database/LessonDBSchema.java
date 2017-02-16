@@ -19,7 +19,7 @@ public class LessonDBSchema {
             public static final String PROF = "prof";
             public static final String ROOM = "room";
             public static final String TIME = "time";
-
+            public static final String TYPE = "type";
         }
     }
 }

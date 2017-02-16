@@ -100,7 +100,7 @@ public class LessonSingle {
         }
     }
 
-    public void updateLesson(LessonInfo info){
+    void updateLesson(LessonInfo info){
         String uuid = info.getId().toString();
         ContentValues values = getContentValues(info);
 
@@ -114,6 +114,7 @@ public class LessonSingle {
         values.put(LessonDBSchema.LessonTable.Cols.PROF, info.getProf());
         values.put(LessonDBSchema.LessonTable.Cols.ROOM, info.getRoom());
         values.put(LessonDBSchema.LessonTable.Cols.TIME, info.getTime());
+        values.put(LessonDBSchema.LessonTable.Cols.TYPE, info.getType());
 
         return values;
     }

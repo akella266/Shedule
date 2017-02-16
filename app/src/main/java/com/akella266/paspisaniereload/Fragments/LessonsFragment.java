@@ -171,6 +171,7 @@ public class LessonsFragment extends Fragment {
 
         private LessonInfo mLessonInfo;
         private TextView tvLesson;
+        private TextView tvType;
         private TextView tvProf;
         private TextView tvRoom;
         private TextView tvTime;
@@ -178,6 +179,7 @@ public class LessonsFragment extends Fragment {
         public void bindLesson(LessonInfo lesson){
             mLessonInfo = lesson;
             tvLesson.setText(lesson.getLesson());
+            tvType.setText(lesson.getType());
             tvProf.setText(lesson.getProf());
             tvRoom.setText(lesson.getRoom());
             tvTime.setText(lesson.getTime());
@@ -190,6 +192,7 @@ public class LessonsFragment extends Fragment {
 
 
             tvLesson = (TextView)itemView.findViewById(R.id.tvNameLesson);
+            tvType = (TextView)itemView.findViewById(R.id.tvType);
             tvProf = (TextView)itemView.findViewById(R.id.tvProf);
             tvRoom = (TextView)itemView.findViewById(R.id.tvRoom);
             tvTime = (TextView)itemView.findViewById(R.id.tvTime);

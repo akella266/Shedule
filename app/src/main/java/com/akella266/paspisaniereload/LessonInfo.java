@@ -2,10 +2,6 @@ package com.akella266.paspisaniereload;
 
 import java.util.UUID;
 
-/**
- * Created by Akella266 on 06.01.2017.
- */
-
 public class LessonInfo {
 
     private UUID id;
@@ -13,6 +9,15 @@ public class LessonInfo {
     private String prof;
     private String room;
     private String time;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public LessonInfo(){
         this(UUID.randomUUID());

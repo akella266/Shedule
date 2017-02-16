@@ -4,11 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.akella266.paspisaniereload.Days;
-
-/**
- * Created by Akella266 on 06.02.2017.
- */
+import com.akella266.paspisaniereload.Enums.Days;
 
 public class LessonBaseHelper extends SQLiteOpenHelper {
 
@@ -28,7 +24,8 @@ public class LessonBaseHelper extends SQLiteOpenHelper {
                     LessonDBSchema.LessonTable.Cols.LESSON + ", " +
                     LessonDBSchema.LessonTable.Cols.PROF + ", " +
                     LessonDBSchema.LessonTable.Cols.ROOM + ", " +
-                    LessonDBSchema.LessonTable.Cols.TIME + ")"
+                    LessonDBSchema.LessonTable.Cols.TIME + ", " +
+                    LessonDBSchema.LessonTable.Cols.TYPE + ")"
             );
         }
     }

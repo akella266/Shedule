@@ -1,8 +1,4 @@
-package com.akella266.paspisaniereload;
-
-/**
- * Created by Akella266 on 09.02.2017.
- */
+package com.akella266.paspisaniereload.Enums;
 
 public enum Days {
     Понедельник,

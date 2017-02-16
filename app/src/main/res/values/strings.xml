@@ -19,5 +19,6 @@
     <string name="new_lesson">Новый предмет</string>
     <string name="no_lessons">Предметы отсутствуют</string>
     <string name="no_name_lesson">Необходимо обязательно ввести название предмета</string>
+    <string name="lesson_fragment_tv_Type">Тип предмета</string>
 
 </resources>

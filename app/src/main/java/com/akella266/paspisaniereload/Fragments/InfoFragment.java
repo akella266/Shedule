@@ -20,21 +20,23 @@ import android.widget.Spinner;
 
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
+import com.akella266.paspisaniereload.Enums.Types;
 
 import java.util.ArrayList;
 import java.util.UUID;
-//{"8.00-9.30", "9.45-11.15", "11.25-12.55", "13.25-14.55", "15.05-16.35", "16.50-18.20"}
+
 public class InfoFragment extends Fragment {
 
     private static final String ARG_LESSON_ID ="lesson_id";
     private ArrayList<String> times;
-    //private String[] str = new String[]{"8.00-9.30", "9.45-11.15", "11.25-12.55", "13.25-14.55", "15.05-16.35", "16.50-18.20"};
     ArrayAdapter<String> timesAdapter;
+    ArrayAdapter<Types> typesAdapter;
     LessonInfo lessonInfo;
     EditText etLesson;
     EditText etProf;
     EditText etRoom;
     Spinner sprTime;
+    Spinner sprType;
     Button btnOK;
     Button btnCancel;
     boolean isNew;
@@ -86,13 +88,15 @@ public class InfoFragment extends Fragment {
 
         sprTime = (Spinner) view.findViewById(R.id.lesson_fragment_spinner_time);
 
-        times = new ArrayList<String>();
+        times = new ArrayList<>();
         times.add("8.00-9.30");
         times.add("9.45-11.15");
         times.add("11.25-12.55");
         times.add("13.25-14.55");
         times.add("15.05-16.35");
         times.add("16.50-18.20");
+
+        sprType = (Spinner) view.findViewById(R.id.lesson_fragment_spinner_type);
     }
 
     private void setListeners() {
@@ -106,7 +110,8 @@ public class InfoFragment extends Fragment {
                     lessonInfo.setLesson(etLesson.getText().toString());
                     lessonInfo.setProf(etProf.getText().toString());
                     lessonInfo.setRoom(etRoom.getText().toString());
-                    lessonInfo.setTime(times.get(sprTime.getSelectedItemPosition()));
+                    lessonInfo.setTime(sprTime.getSelectedItem().toString());
+                    lessonInfo.setType(sprType.getSelectedItem().toString());
                     getActivity().finish();
                 }
             }
@@ -122,11 +127,10 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        timesAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, times);
+        timesAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, times);
         timesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sprTime.setAdapter(timesAdapter);
-        sprTime.setPrompt("Время");
         int indexOfTime = LessonSingle.get(getActivity()).getmLessons().size();
         if (indexOfTime > 6)
             indexOfTime = 6;
@@ -135,6 +139,23 @@ public class InfoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sprTime.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        typesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Types.values());
+        typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sprType.setAdapter(typesAdapter);
+        sprType.setSelection(0);
+        sprType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sprType.setSelection(i);
             }
 
             @Override
