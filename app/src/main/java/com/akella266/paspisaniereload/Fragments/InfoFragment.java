@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 
+import com.akella266.paspisaniereload.Intefaces.onBackPressedListener;
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
 import com.akella266.paspisaniereload.Enums.Types;
@@ -25,7 +26,7 @@ import com.akella266.paspisaniereload.Enums.Types;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class InfoFragment extends Fragment {
+public class InfoFragment extends Fragment implements onBackPressedListener {
 
     private static final String ARG_LESSON_ID ="lesson_id";
     private ArrayList<String> times;
@@ -103,10 +104,9 @@ public class InfoFragment extends Fragment {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etLesson.getText().toString().length() == 0){
+                if (etLesson.getText().toString().length() == 0) {
                     Snackbar.make(view, R.string.no_name_lesson, Snackbar.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     lessonInfo.setLesson(etLesson.getText().toString());
                     lessonInfo.setProf(etProf.getText().toString());
                     lessonInfo.setRoom(etRoom.getText().toString());
@@ -119,22 +119,25 @@ public class InfoFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isNew) {
-                    LessonSingle.get(getActivity()).deleteLesson(lessonInfo);
-                    isNew = false;
-                }
+                checkIsNew();
                 getActivity().finish();
             }
         });
 
-        timesAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, times);
+        timesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, times);
         timesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sprTime.setAdapter(timesAdapter);
-        int indexOfTime = LessonSingle.get(getActivity()).getmLessons().size();
-        if (indexOfTime > 6)
-            indexOfTime = 6;
-        sprTime.setSelection(indexOfTime-1);
+        if (isNew) {
+            int indexOfTime = LessonSingle.get(getActivity()).getmLessons().size();
+            if (indexOfTime > 6)
+                indexOfTime = 6;
+            sprTime.setSelection(indexOfTime - 1);
+        }
+        else{
+            sprTime.setSelection(times.indexOf(lessonInfo.getTime()));
+        }
+
         sprTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -151,7 +154,15 @@ public class InfoFragment extends Fragment {
         typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sprType.setAdapter(typesAdapter);
-        sprType.setSelection(0);
+        sprType.setSelection(3);
+
+        if (isNew){
+            sprType.setSelection(0);
+        }
+        else{
+            int pos = Types.valueOf(lessonInfo.getType()).ordinal();
+            sprType.setSelection(pos);
+        }
         sprType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -163,6 +174,13 @@ public class InfoFragment extends Fragment {
 
             }
         });
+    }
+
+    private void checkIsNew(){
+        if (isNew) {
+            LessonSingle.get(getActivity()).deleteLesson(lessonInfo);
+            isNew = false;
+        }
     }
 
     @Override
@@ -193,5 +211,11 @@ public class InfoFragment extends Fragment {
 
     public void returnResult(){
         getActivity().setResult(Activity.RESULT_OK, null);
+    }
+
+    @Override
+    public void onBackPressed() {
+        checkIsNew();
+        getActivity().finish();
     }
 }

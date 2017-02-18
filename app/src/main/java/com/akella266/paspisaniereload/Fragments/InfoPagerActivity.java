@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.akella266.paspisaniereload.Intefaces.onBackPressedListener;
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
 
@@ -53,6 +54,23 @@ public class InfoPagerActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        onBackPressedListener backPressedListener = null;
+        for(Fragment fragment : fm.getFragments()){
+            if (fragment instanceof onBackPressedListener) {
+                backPressedListener = (onBackPressedListener) fragment;
+                break;
+            }
+        }
+
+        if (backPressedListener != null)
+            backPressedListener.onBackPressed();
+        else
+            super.onBackPressed();
     }
 
     public static Intent newIntent(Context context, UUID uuid){
