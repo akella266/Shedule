@@ -1,11 +1,10 @@
-package com.akella266.paspisaniereload.Fragments;
+package com.akella266.paspisaniereload.Activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 
-import com.akella266.paspisaniereload.R;
+import com.akella266.paspisaniereload.Fragments.LessonsFragment;
 
 
 public class LessonsActivity extends SingleFragmentActivity {

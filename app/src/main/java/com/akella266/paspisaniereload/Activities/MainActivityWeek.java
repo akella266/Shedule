@@ -1,13 +1,8 @@
-package com.akella266.paspisaniereload.Fragments;
+package com.akella266.paspisaniereload.Activities;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 
-import com.akella266.paspisaniereload.R;
-
-/**
- * Created by Akella266 on 08.01.2017.
- */
+import com.akella266.paspisaniereload.Fragments.WeekFragment;
 
 public class MainActivityWeek extends SingleFragmentActivity {
 

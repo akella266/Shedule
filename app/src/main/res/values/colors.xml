@@ -5,4 +5,6 @@
     <color name="mainBackground">#fff</color>
     <color name="toolBar_titleColor">#fff</color>
     <color name="btnInMain">#81d4fa</color>
+    <color name="backCard">#eeeeee</color>
+
 </resources>

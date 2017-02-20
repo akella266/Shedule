@@ -3,15 +3,14 @@ package com.akella266.paspisaniereload.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
+import com.akella266.paspisaniereload.Activities.LessonsActivity;
 import com.akella266.paspisaniereload.R;
 
 public class WeekFragment extends Fragment implements AdapterView.OnItemClickListener{

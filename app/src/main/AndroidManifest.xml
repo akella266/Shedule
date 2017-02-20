@@ -12,21 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Fragments.MainActivityWeek">
+        <activity android:name=".Activities.MainActivityWeek">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         
-        <activity android:name=".Fragments.LessonsActivity"
-                    android:parentActivityName=".Fragments.MainActivityWeek">
+        <activity android:name=".Activities.LessonsActivity"
+                    android:parentActivityName=".Activities.MainActivityWeek">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".Fragments.InfoPagerActivity">
+        <activity android:name=".Activities.InfoPagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>

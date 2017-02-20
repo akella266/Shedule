@@ -1,16 +1,17 @@
-package com.akella266.paspisaniereload.Fragments;
+package com.akella266.paspisaniereload.Activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.akella266.paspisaniereload.Fragments.InfoFragment;
+import com.akella266.paspisaniereload.Fragments.LessonSingle;
 import com.akella266.paspisaniereload.Intefaces.onBackPressedListener;
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;

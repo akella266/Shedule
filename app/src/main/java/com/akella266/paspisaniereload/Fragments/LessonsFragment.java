@@ -8,13 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.akella266.paspisaniereload.Activities.InfoPagerActivity;
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
@@ -170,6 +169,7 @@ public class LessonsFragment extends Fragment {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private LessonInfo mLessonInfo;
+        private LinearLayout cardLayout;
         private TextView tvLesson;
         private TextView tvType;
         private TextView tvProf;
@@ -178,10 +178,22 @@ public class LessonsFragment extends Fragment {
 
         public void bindLesson(LessonInfo lesson){
             mLessonInfo = lesson;
+            String field;
             tvLesson.setText(lesson.getLesson());
             tvType.setText(lesson.getType());
-            tvProf.setText(lesson.getProf());
-            tvRoom.setText(lesson.getRoom());
+
+            field = lesson.getProf();
+            if (field.length() == 0)
+                cardLayout.removeView(tvProf);
+            else
+                tvProf.setText(field);
+
+            field = lesson.getRoom();
+            if (field.length() == 0)
+                cardLayout.removeView(tvRoom);
+            else
+                tvRoom.setText(field);
+
             tvTime.setText(lesson.getTime());
         }
 
@@ -190,7 +202,7 @@ public class LessonsFragment extends Fragment {
 
             itemView.setOnClickListener(this);
 
-
+            cardLayout = (LinearLayout)itemView.findViewById(R.id.cardView_linearLayout);
             tvLesson = (TextView)itemView.findViewById(R.id.tvNameLesson);
             tvType = (TextView)itemView.findViewById(R.id.tvType);
             tvProf = (TextView)itemView.findViewById(R.id.tvProf);

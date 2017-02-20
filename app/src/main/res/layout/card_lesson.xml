@@ -7,59 +7,97 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/cardLesson"
-    android:layout_margin="5dp"
-    card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="6dp"
-    card_view:cardBackgroundColor="@color/btnInMain">
+    android:layout_marginBottom="2dp"
+    card_view:cardBackgroundColor="@color/backCard"
+    card_view:cardElevation="1dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/cardView_linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
-    <TextView
-        android:id="@+id/tvNameLesson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="МатАнализ"/>
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
 
-    <TextView
-        android:id="@+id/tvType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:textSize="14sp"
-        tools:text="Лекция"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="2dp">
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                tools:text="8.00-9.30"
+                />
+
+                <TextView
+                android:id="@+id/tvRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textSize="20sp"
+                tools:text="2-413"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+           android:background="@android:color/darker_gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:id="@+id/tvNameLesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                tools:text="МатАнализ"/>
+
+
+            <TextView
+                android:id="@+id/tvType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textSize="20sp"
+                tools:text="Лекция" />
+
+        </LinearLayout>
 
     <TextView
         android:id="@+id/tvProf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:textSize="14sp"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         tools:text="Задорожнюк М.В."
         />
 
-    <TextView
-        android:id="@+id/tvRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:textSize="14sp"
-        tools:text="2-413"
-        />
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:textSize="14sp"
-        tools:text="8.00-9.30"
-        />
+
     </LinearLayout>
 
 
