@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 
+import com.akella266.paspisaniereload.Enums.TimeWhen;
 import com.akella266.paspisaniereload.Intefaces.onBackPressedListener;
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
@@ -32,12 +33,14 @@ public class InfoFragment extends Fragment implements onBackPressedListener {
     private ArrayList<String> times;
     ArrayAdapter<String> timesAdapter;
     ArrayAdapter<Types> typesAdapter;
+    ArrayAdapter<TimeWhen> whensAdapter;
     LessonInfo lessonInfo;
     EditText etLesson;
     EditText etProf;
     EditText etRoom;
     Spinner sprTime;
     Spinner sprType;
+    Spinner sprWhen;
     Button btnOK;
     Button btnCancel;
     boolean isNew;
@@ -98,6 +101,7 @@ public class InfoFragment extends Fragment implements onBackPressedListener {
         times.add("16.50-18.20");
 
         sprType = (Spinner) view.findViewById(R.id.lesson_fragment_spinner_type);
+        sprWhen = (Spinner) view.findViewById(R.id.lesson_fragment_spinner_when);
     }
 
     private void setListeners() {
@@ -154,7 +158,6 @@ public class InfoFragment extends Fragment implements onBackPressedListener {
         typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sprType.setAdapter(typesAdapter);
-        sprType.setSelection(3);
 
         if (isNew){
             sprType.setSelection(0);
@@ -167,6 +170,32 @@ public class InfoFragment extends Fragment implements onBackPressedListener {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sprType.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        whensAdapter = new ArrayAdapter<TimeWhen>(getActivity(), android.R.layout.simple_spinner_item, TimeWhen.values());
+        whensAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sprWhen.setAdapter(whensAdapter);
+
+        if (isNew){
+            sprWhen.setSelection(0);
+        }
+        else{
+            int pos = TimeWhen.valueOf(lessonInfo.getType()).ordinal();
+            sprWhen.setSelection(pos);
+        }
+
+
+        sprWhen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sprWhen.setSelection(i);
             }
 
             @Override

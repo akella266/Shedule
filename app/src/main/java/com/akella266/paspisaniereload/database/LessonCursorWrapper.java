@@ -22,6 +22,7 @@ public class LessonCursorWrapper extends CursorWrapper {
         String room = getString(getColumnIndex(LessonTable.Cols.ROOM));
         String time = getString(getColumnIndex(LessonTable.Cols.TIME));
         String type = getString(getColumnIndex(LessonTable.Cols.TYPE));
+        String when = getString(getColumnIndex(LessonTable.Cols.WHEN));
 
 
         LessonInfo info = new LessonInfo(UUID.fromString(uuid));
@@ -30,7 +31,7 @@ public class LessonCursorWrapper extends CursorWrapper {
         info.setRoom(room);
         info.setTime(time);
         info.setType(type);
-
+        info.setWhen(when);
         return info;
     }
 }

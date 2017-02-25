@@ -1,6 +1,8 @@
 package com.akella266.paspisaniereload.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akella266.paspisaniereload.Activities.InfoPagerActivity;
+import com.akella266.paspisaniereload.Enums.TimeWhen;
 import com.akella266.paspisaniereload.LessonInfo;
 import com.akella266.paspisaniereload.R;
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
@@ -24,6 +27,8 @@ public class LessonsFragment extends Fragment {
 
     private static final int REQUEST_LESSON = 1;
     private static final String ARG_LESSONS_DAY = "lessons_day";
+    public static final String ARG_TYPE_WEEK = "type_week";
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -37,10 +42,12 @@ public class LessonsFragment extends Fragment {
     private RecyclerAdapter mAdapter;
     private String day;
     private TextView noLessons;
+    private String typeWeek;
 
-    public static LessonsFragment newInstance(String day){
+    public static LessonsFragment newInstance(String day, String week){
         Bundle args = new Bundle();
         args.putString(ARG_LESSONS_DAY, day);
+        args.putString(ARG_TYPE_WEEK, week);
 
         LessonsFragment lessonsFragment = new LessonsFragment();
         lessonsFragment.setArguments(args);
@@ -53,6 +60,7 @@ public class LessonsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_lesson_for_fragments, container, false);
 
         day = (String) getArguments().getSerializable(ARG_LESSONS_DAY);
+        typeWeek = (String) getArguments().getSerializable(ARG_TYPE_WEEK);
 
         rvList = (RecyclerView)view.findViewById(R.id.rvList);
         rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -72,10 +80,14 @@ public class LessonsFragment extends Fragment {
             }
         });
 
+
+
         updateUI();
 
         return view;
     }
+
+
 
     private void initSwipeListener() {
         SwipeableRecyclerViewTouchListener swipeListener =
@@ -124,7 +136,7 @@ public class LessonsFragment extends Fragment {
                 mAdapter = new RecyclerAdapter(lessons);
                 rvList.setAdapter(mAdapter);
             } else {
-                mAdapter.setCrimes(lessons);
+                mAdapter.setLessons(lessons);
                 mAdapter.notifyDataSetChanged();
             }
         }
@@ -160,7 +172,7 @@ public class LessonsFragment extends Fragment {
             return lessons.size();
         }
 
-        public void setCrimes(ArrayList<LessonInfo> lessons){
+        public void setLessons(ArrayList<LessonInfo> lessons){
             this.lessons = lessons;
         }
     }

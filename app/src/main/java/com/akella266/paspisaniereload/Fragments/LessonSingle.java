@@ -115,6 +115,7 @@ public class LessonSingle {
         values.put(LessonDBSchema.LessonTable.Cols.ROOM, info.getRoom());
         values.put(LessonDBSchema.LessonTable.Cols.TIME, info.getTime());
         values.put(LessonDBSchema.LessonTable.Cols.TYPE, info.getType());
+        values.put(LessonDBSchema.LessonTable.Cols.WHEN, info.getWhen());
 
         return values;
     }

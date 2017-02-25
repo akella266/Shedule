@@ -1,5 +1,7 @@
 package com.akella266.paspisaniereload;
 
+import com.akella266.paspisaniereload.Enums.TimeWhen;
+
 import java.util.UUID;
 
 public class LessonInfo {
@@ -10,6 +12,15 @@ public class LessonInfo {
     private String room;
     private String time;
     private String type;
+    private String when;
+
+    public String getWhen() {
+        return when;
+    }
+
+    public void setWhen(String when) {
+        this.when = when;
+    }
 
     public String getType() {
         return type;
